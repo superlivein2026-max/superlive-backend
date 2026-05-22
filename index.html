@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperLive Education</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        h1 { text-align: center; color: #1a73e8; }
+        .course { background: white; padding: 15px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .course h3 { margin: 0; color: #333; }
+        .course p { margin: 5px 0; color: #666; }
+        .loading { text-align: center; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SuperLive Education Courses 🚀</h1>
+        <div id="courses-list" class="loading">Loading courses...</div>
+    </div>
+
+    <script>
+        // Backend se courses laao
+        fetch('https://superlive-backend.onrender.com/api/education/courses')
+            .then(response => response.json())
+            .then(data => {
+                const coursesList = document.getElementById('courses-list');
+                coursesList.innerHTML = ''; // Loading hatao
+
+                if (data.success && data.courses.length > 0) {
+                    data.courses.forEach(course => {
+                        coursesList.innerHTML += `
+                            <div class="course">
+                                <h3>${course.title}</h3>
+                                <p><b>Videos:</b> ${course.videos} | <b>Notes:</b> ${course.notes}</p>
+                            </div>
+                        `;
+                    });
+                } else {
+                    coursesList.innerHTML = '<p>No courses found</p>';
+                }
+            })
+            .catch(error => {
+                document.getElementById('courses-list').innerHTML = 'Error loading courses';
+                console.error('Error:', error);
+            });
+    </script>
+</body>
+</html>

@@ -1,12 +1,13 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Home route
+// ========== FRONTEND SERVE KARNE KE LIYE ==========
 app.get('/', (req, res) => {
-  res.send('SuperLive Backend Running 🚀');
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // ========== EDUCATION MODULE START ==========
@@ -28,8 +29,8 @@ app.post('/api/education/courses', (req, res) => {
   const newCourse = { 
     id: courses.length + 1, 
     title: title, 
-    videos: videos, 
-    notes: notes 
+    videos: videos || 0, 
+    notes: notes || 0 
   };
   courses.push(newCourse);
   res.json({ success: true, message: "Course added", course: newCourse });
