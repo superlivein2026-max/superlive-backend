@@ -1,23 +1,15 @@
 const express = require('express');
-const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, '../public')));
-app.use(express.json());
-
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
+  res.send('<h1>SuperLive Backend LIVE Ho Gaya ✅</h1><h2>Bhai Server Chal Raha Hai</h2><p>2 din baad ho gaya finally</p>');
 });
 
 app.get('/education', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/modules/education/index.html'));
-});
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
+  res.send('<h1>Education Module</h1><p>Ab yaha login signup banega</p>');
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
