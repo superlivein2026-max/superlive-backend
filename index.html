@@ -6,39 +6,94 @@
     <title>SuperLive.in - All in One</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: #f8fafc; max-width: 480px; margin: 0 auto; }
-      .top-bar { background: white; padding: 10px 12px; display: flex; align-items: center; gap: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 100; }
-      .profile-pic { width: 36px; height: 36px; border-radius: 50%; background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
-      .search-bar { flex: 1; padding: 8px 12px; border: 1px solid #e5e7eb; border-radius: 20px; background: #f9fafb; font-size: 0.9rem; }
-      .icon { font-size: 1.3rem; flex-shrink: 0; }
-      .logo { font-weight: bold; color: #3b82f6; font-size: 1.1rem; flex-shrink: 0; }
-      .quick-links { display: flex; overflow-x: auto; gap: 12px; padding: 12px; background: white; margin-top: 6px; }
-      .quick-links::-webkit-scrollbar { display: none; }
-      .quick-item { min-width: 60px; text-align: center; font-size: 0.7rem; }
-      .quick-icon { width: 45px; height: 45px; background: #eff6ff; border-radius: 12px; margin: 0 auto 4px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
-      .ad-banner { margin: 12px; height: 110px; border-radius: 12px; overflow: hidden; position: relative; }
-      .ad-slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 0.5s; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.1rem; font-weight: bold; text-align: center; padding: 10px; }
-      .ad-slide.active { opacity: 1; }
-      .modules-container { padding: 12px; }
-      .section-title { font-size: 1rem; margin-bottom: 12px; color: #1f2937; font-weight: 600; }
-      .modules-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px 8px; }
-      .module { text-align: center; cursor: pointer; }
-      .module-icon { width: 55px; height: 55px; border-radius: 50%; margin: 0 auto 6px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-      .module-name { font-size: 0.65rem; color: #4b5563; line-height: 1.2; height: 26px; overflow: hidden; }
+        body { background: #f8fafc; }
+
+        /* Main container - Laptop + Mobile dono ke liye */
+     .app-container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: #f8fafc;
+        }
+
+        /* Mobile: 480px tak center me rakhega */
+        @media (max-width: 480px) {
+         .app-container { max-width: 480px; }
+        }
+        /* Tablet: 481px se 768px tak */
+        @media (min-width: 481px) and (max-width: 768px) {
+         .app-container { max-width: 600px; }
+        }
+        /* Laptop: 769px se upar */
+        @media (min-width: 769px) {
+         .app-container { max-width: 1200px; }
+        }
+
+     .top-bar { background: white; padding: 10px 12px; display: flex; align-items: center; gap: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 100; }
+     .profile-pic { width: 36px; height: 36px; border-radius: 50%; background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
+     .search-bar { flex: 1; padding: 8px 12px; border: 1px solid #e5e7eb; border-radius: 20px; background: #f9fafb; font-size: 0.9rem; }
+     .icon { font-size: 1.3rem; flex-shrink: 0; }
+     .logo { font-weight: bold; color: #3b82f6; font-size: 1.1rem; flex-shrink: 0; }
+
+     .quick-links { display: flex; overflow-x: auto; gap: 12px; padding: 12px; background: white; margin-top: 6px; }
+     .quick-links::-webkit-scrollbar { display: none; }
+     .quick-item { min-width: 60px; text-align: center; font-size: 0.7rem; }
+     .quick-icon { width: 45px; height: 45px; background: #eff6ff; border-radius: 12px; margin: 0 auto 4px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+
+     .ad-banner { margin: 12px; height: 110px; border-radius: 12px; overflow: hidden; position: relative; }
+      @media (min-width: 769px) {
+       .ad-banner { height: 200px; margin: 20px; }
+      }
+     .ad-slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 0.5s; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.1rem; font-weight: bold; text-align: center; padding: 10px; }
+      @media (min-width: 769px) {
+       .ad-slide { font-size: 1.8rem; }
+      }
+     .ad-slide.active { opacity: 1; }
+
+     .modules-container { padding: 12px; }
+      @media (min-width: 769px) {
+       .modules-container { padding: 20px; }
+      }
+     .section-title { font-size: 1rem; margin-bottom: 12px; color: #1f2937; font-weight: 600; }
+      @media (min-width: 769px) {
+       .section-title { font-size: 1.5rem; margin-bottom: 20px; }
+      }
+
+      /* Mobile: 4 icons */
+     .modules-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px 8px; }
+      /* Tablet: 6 icons */
+      @media (min-width: 481px) {
+       .modules-grid { grid-template-columns: repeat(6, 1fr); gap: 20px 12px; }
+      }
+      /* Laptop: 8 icons */
+      @media (min-width: 769px) {
+       .modules-grid { grid-template-columns: repeat(8, 1fr); gap: 24px 16px; }
+      }
+
+     .module { text-align: center; cursor: pointer; }
+     .module-icon { width: 55px; height: 55px; border-radius: 50%; margin: 0 auto 6px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+      @media (min-width: 769px) {
+       .module-icon { width: 70px; height: 70px; font-size: 2rem; }
+      }
+     .module-name { font-size: 0.65rem; color: #4b5563; line-height: 1.2; height: 26px; overflow: hidden; }
+      @media (min-width: 769px) {
+       .module-name { font-size: 0.8rem; height: auto; }
+      }
     </style>
 </head>
 <body>
-    <div class="top-bar">
-        <div class="profile-pic">S</div>
-        <input type="text" class="search-bar" placeholder="Search...">
-        <div class="icon">🔔</div>
-        <div class="logo">SL</div>
-    </div>
-    <div class="quick-links" id="quickLinks"></div>
-    <div class="ad-banner" id="adBanner"></div>
-    <div class="modules-container">
-        <h3 class="section-title">All Services</h3>
-        <div class="modules-grid" id="modulesGrid"></div>
+    <div class="app-container">
+        <div class="top-bar">
+            <div class="profile-pic">S</div>
+            <input type="text" class="search-bar" placeholder="Search...">
+            <div class="icon">🔔</div>
+            <div class="logo">SL</div>
+        </div>
+        <div class="quick-links" id="quickLinks"></div>
+        <div class="ad-banner" id="adBanner"></div>
+        <div class="modules-container">
+            <h3 class="section-title">All Services</h3>
+            <div class="modules-grid" id="modulesGrid"></div>
+        </div>
     </div>
     <script>
         const modules = [
