@@ -1,34 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SuperLive</title>
+    <title>Education - SuperLive</title>
+    <link rel="stylesheet" href="../../assets/css/common.css">
 </head>
 <body>
-    <!-- TOP-LEFT LOGO - EDUCATION PAGE KHAULGA -->
-    <a href="./modules/education/index.html">
-        <img src="./assets/logo.png" alt="Education" 
-             style="width: 60px; height: 60px; position: fixed; top: 15px; left: 15px; 
-                    cursor: pointer; z-index: 9999; border-radius: 50%; 
-                    border: 3px solid #00e5ff;">
-    </a>
+    <header>
+        <img src="../../assets/logo.png" class="logo" alt="SuperLive">
+        <input type="text" class="search-box" placeholder="Course, Teacher khoje...">
+        <div>📍 <span id="city">Loading...</span></div>
+    </header>
 
-    <!-- TU APNA PURANA WALA CODE YAHAN CHIPKA DE -->
-    <!-- SEARCH BAR, CATEGORIES, BANNER SAB JO PEHLE THA -->
-    
-    <!-- EXAMPLE: EDUCATION CATEGORY KO BHI CLICKABLE BANA DIYA -->
-    <div class="categories">
-        <a href="./modules/education/index.html" style="text-decoration: none; color: black;">
-            <div class="category">
-                <div>📚</div>
-                <p>Education</p>
-            </div>
+    <div class="module-grid">
+        <a href="pages/student-login.html" class="module-card">
+            <img src="assets/student.png" alt="Student">
+            <p>Student Login</p>
         </a>
-        <!-- Baaki Pharmacy, Market, Food wale waise hi rehne de -->
+        <a href="pages/teacher-login.html" class="module-card">
+            <img src="assets/teacher.png" alt="Teacher">
+            <p>Teacher Login</p>
+        </a>
+        <a href="pages/courses.html" class="module-card">
+            <img src="assets/courses.png" alt="Courses">
+            <p>All Courses</p>
+        </a>
     </div>
 
-    <!-- TU APNA BAaki KA PURANA HTML YAHAN PASTE KAR -->
-    
+    <script src="../../assets/js/api-helper.js"></script>
 </body>
 </html>
