@@ -3,48 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SuperLive Education</title>
+    <title>SuperLive.in - All in One</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: auto; }
-        h1 { text-align: center; color: #1a73e8; }
-        .course { background: white; padding: 15px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .course h3 { margin: 0; color: #333; }
-        .course p { margin: 5px 0; color: #666; }
-        .loading { text-align: center; font-size: 18px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #f5f5; }
+
+        /* TOP BAR */
+       .top-bar {
+            background: white;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+       .profile-pic {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: #3b82f6;
+            color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold;
+        }
+       .search-bar {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            background: #f9fafb;
+        }
+       .icon { font-size: 1.5rem; }
+       .logo { font-weight: bold; color: #3b82f6; font-size: 1.2rem; }
+
+        /* QUICK LINKS */
+       .quick-links {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            padding: 15px;
+            background: white;
+            margin-top: 8px;
+        }
+       .quick-links::-webkit-scrollbar { display: none; }
+       .quick-item {
+            min-width: 70px;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+       .quick-icon {
+            width: 50px; height: 50px;
+            background: #dbeafe;
+            border-radius: 12px;
+            margin: 0 auto 5px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* AD BANNER */
+       .ad-banner {
+            margin: 15px;
+            height: 120px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            background: #333;
+        }
+       .ad-slide {
+            position: absolute;
+            width: 100%; height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.5rem; font-weight: bold;
+        }
+       .ad-slide.active { opacity: 1; }
+
+        /* MODULES GRID */
+       .modules-container { padding: 15px; }
+       .section-title { font-size: 1.1rem; margin-bottom: 15px; color: #111827; }
+       .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+       .module {
+            text-align: center;
+        }
+       .module-icon {
+            width: 65px; height: 65px;
+            border-radius: 50%;
+            margin: 0 auto 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+       .module-name { font-size: 0.75rem; color: #374151; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>SuperLive Education Courses 🚀</h1>
-        <div id="courses-list" class="loading">Loading courses...</div>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="profile-pic">S</div>
+        <input type="text" class="search-bar" placeholder="Search for Education, Food, Travel...">
+        <div class="icon">🔔</div>
+        <div class="logo">SL</div>
+    </div>
+
+    <!-- QUICK LINKS -->
+    <div class="quick-links" id="quickLinks"></div>
+
+    <!-- DYNAMIC ADVERTISEMENT -->
+    <div class="ad-banner" id="adBanner"></div>
+
+    <!-- MODULES -->
+    <div class="modules-container">
+        <h3 class="section-title">All Modules</h3>
+        <div class="modules-grid" id="modulesGrid"></div>
     </div>
 
     <script>
-        // Backend se courses laao
-        fetch('https://superlive-backend.onrender.com/api/education/courses')
-            .then(response => response.json())
-            .then(data => {
-                const coursesList = document.getElementById('courses-list');
-                coursesList.innerHTML = ''; // Loading hatao
+        // 1. 50 MODULES KA DATA - Abhi sample me 12 daal raha hun
+        const modules = [
+            { name: "Education", icon: "📚", color: "#3b82f6" },
+            { name: "Pharmacy", icon: "💊", color: "#10b981" },
+            { name: "Market", icon: "🛒", color: "#f59e0b" },
+            { name: "Food", icon: "🍔", color: "#ef4444" },
+            { name: "Travel", icon: "✈️", color: "#8b5cf6" },
+            { name: "Rooms", icon: "🏠", color: "#06b6d4" },
+            { name: "Social", icon: "👥", color: "#ec4899" },
+            { name: "Jobs", icon: "💼", color: "#6366f1" },
+            { name: "News", icon: "📰", color: "#64748b" },
+            { name: "Health", icon: "❤️", color: "#f43f5e" },
+            { name: "Finance", icon: "💰", color: "#22c55e" },
+            { name: "Sports", icon: "⚽", color: "#84cc16" },
+            // Baaki 38 modules tu yahan add kar dena
+        ];
 
-                if (data.success && data.courses.length > 0) {
-                    data.courses.forEach(course => {
-                        coursesList.innerHTML += `
-                            <div class="course">
-                                <h3>${course.title}</h3>
-                                <p><b>Videos:</b> ${course.videos} | <b>Notes:</b> ${course.notes}</p>
-                            </div>
-                        `;
-                    });
-                } else {
-                    coursesList.innerHTML = '<p>No courses found</p>';
-                }
-            })
-            .catch(error => {
-                document.getElementById('courses-list').innerHTML = 'Error loading courses';
-                console.error('Error:', error);
-            });
+        // 2. 50 ADS KA DATA - Abhi sample me 5 daal raha hun
+        const ads = [
+            { text: "50% OFF on All Courses", color: "#ef4444" },
+            { text: "Free Food Delivery Today", color: "#10b981" },
+            { text: "Book Hotels at ₹999", color: "#3b82f6" },
+            { text: "Pharmacy: 24/7 Delivery", color: "#8b5cf6" },
+            { text: "SuperLive Pro - Go Ad Free", color: "#f59e0b" },
+            // Baaki 45 ads tu yahan add kar dena
+        ];
+
+        // 3. MODULES DIKHAO
+        const modulesGrid = document.getElementById('modulesGrid');
+        modules.forEach(mod => {
+            modulesGrid.innerHTML += `
+                <div class="module" onclick="openModule('${mod.name}')">
+                    <div class="module-icon" style="background: ${mod.color}">${mod.icon}</div>
+                    <div class="module-name">${mod.name}</div>
+                </div>
+            `;
+        });
+
+        // 4. QUICK LINKS DIKHAO - Pehle 6 modules
+        const quickLinks = document.getElementById('quickLinks');
+        modules.slice(0, 6).forEach(mod => {
+            quickLinks.innerHTML += `
+                <div class="quick-item" onclick="openModule('${mod.name}')">
+                    <div class="quick-icon">${mod.icon}</div>
+                    <div>${mod.name}</div>
+                </div>
+            `;
+        });
+
+        // 5. DYNAMIC ADS CHALAO
+        const adBanner = document.getElementById('adBanner');
+        ads.forEach((ad, index) => {
+            adBanner.innerHTML += `
+                <div class="ad-slide ${index === 0? 'active' : ''}" style="background: ${ad.color}">
+                    ${ad.text}
+                </div>
+            `;
+        });
+
+        let currentAd = 0;
+        setInterval(() => {
+            const slides = document.querySelectorAll('.ad-slide');
+            slides[currentAd].classList.remove('active');
+            currentAd = (currentAd + 1) % slides.length;
+            slides[currentAd].classList.add('active');
+        }, 3000); // Har 3 sec me ad change
+
+        // 6. MODULE CLICK FUNCTION
+        function openModule(name) {
+            if(name === 'Education') {
+                window.location.href = '/education'; // Baad me banayenge
+            } else {
+                alert(name + ' module coming soon!');
+            }
+        }
     </script>
 </body>
 </html>
